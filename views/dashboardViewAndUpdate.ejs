@@ -1,0 +1,96 @@
+<!-- include header -->
+<%- include('include/_header.ejs')  %>
+
+<style>
+    body{
+        background-color: #8AF9EB;
+        overflow-x: hidden;
+    }
+    .btnBack:hover{
+        background-color: rgb(228, 228, 228);
+    }
+
+    .btnSave:hover,.btnUpdate:hover,.btnDelete:hover{
+        background-color: rgb(195, 195, 195);
+    }
+</style>
+<body>
+    <div class="container">
+        <a href="/admin" class="btn border-0 mt-3 btnBack"><i class="fa-solid fa-angles-left me-2"></i>To Dashboard</a>
+        <div class="row justify-content-center">
+            <div class="col-md-6 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/api/admin" method="post" class="ms-2 me-2" id="update_data">
+                            <div class="mb-3">
+                                <label for="descriptionTitle" class="form-label">Description Tile</label>
+                                <input type="hidden" name="id" value="<%= admin._id %> ">
+                                <input type="text" name="descriptionTitle" value="<%= admin.description_title%>"  class="form-control" required autocomplete="off">
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea name="description" class="form-control"  required autocomplete="off"><%= admin.description %></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="date" class="form-label">Start Date</label>
+                                <% function format(_date){ 
+                                    let date = new Date(_date);
+                                    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+                                 }%>
+                                <input type="date" name="date" value="<%= format(admin.start_time)  %>"  class="form-control" required  autocomplete="off">
+                            </div>
+                            <div class="mb-3">
+                                <label for="limit" class="form-label">Limit</label>
+                                <input type="number" name="limit" value="<%= admin.limit %>"  class="form-control" required  autocomplete="off">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phNo" class="form-label">Admin Phone No</label>
+                                <input type="number" name="phNo" value="<%= admin.phNo %>"  class="form-control" required autocomplete="off">
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-around">
+                                <button type="submit" class="btn border-0 w-25 btnSave">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <% for(var i = 0; i < admin.students.length;i++){%>  
+                            <% if(admin.students[i] != null ) { %>
+                         
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                        <th>Year</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><%= i + 1%></td>
+                                        <td><%= admin.students[i].name%></td>
+                                        <td><%= admin.students[i].mail%></td>
+                                        <td><%= admin.students[i].phNumber%></td>
+                                        <td><%= admin.students[i].year%></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <% } %>
+                            <% } %> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- include footer -->
+<%- include('include/_footer.ejs')  %> 

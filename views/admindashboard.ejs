@@ -1,0 +1,42 @@
+<!-- include header -->
+<%- include('include/_header.ejs')  %>
+<style>
+    body{
+        background-color: #8AF9EB;
+        overflow-x: hidden;
+    }
+    .btnView:hover,.btnEdit:hover,.btnDelete:hover{
+        background-color: rgb(195, 195, 195);
+    }
+</style>
+<body>
+   <div class="container">
+        <a class="btn btn-light mt-3" href="/add"><i class="fa-regular fa-plus me-2"></i>Add</a>
+        <div class="row">
+            <% for(var i = 0; i < admin.length;i++){%> 
+            <div class="col-md-6 mt-3">
+                <div class="card">
+                    <div class="card-title">
+                        <h3 class="text-center mt-2"><%= admin[i].description_title%></h3>
+                    </div>
+                    <hr>
+                    <div class="card-body">
+                        <p class="text-center"><%= admin[i].description%></p>
+                        <hr>
+                        <p class="ms-0">start-Date : <%= admin[i].start_time%></p>
+                        <p class="ms-0">limit : <%= admin[i].limit %></p>
+                        <p class="ms-0">Admin PhoneNumber : <%= admin[i].phNo%></p>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <div class="d-flex justify-content-around">
+                            <a href="/api/admin/<%= admin[i]._id %>/view" class="btn border-0 w-25 btnView">View</a>
+                            <a class="btn border-0 w-25 btnDelete"  data-id="<%= admin[i]._id%>">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %> 
+        </div>
+   </div>
+<!-- include footer -->
+<%- include('include/_footer.ejs')  %> 
